@@ -1,0 +1,21 @@
+{
+    "name": "mycrm/project",
+    "description": "Mini-Crm",
+    "type": "library",
+    "autoload": {
+      "psr-4": {
+        "app\\": "app/",
+        "config\\": "config/"
+      }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Zema"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+      "php": ">=8.4"
+    }
+}
