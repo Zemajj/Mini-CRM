@@ -7,9 +7,8 @@ use app\Core\BaseModel\BaseModel;
 class User extends BaseModel
 {
     protected string $table = 'users';
-
 }
 
-$userModel = new User();
+$userModel = new User('users');
 $users = $userModel->all();
 print_r($users);

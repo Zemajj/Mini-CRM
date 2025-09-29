@@ -13,7 +13,7 @@
 
     private static PDO $connection;
 
-    public static function getConnection()
+    public static function getConnection(): PDO
     {
         try {
             $pdo = new PDO(

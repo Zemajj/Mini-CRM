@@ -7,4 +7,4 @@ use app\Core\Database\Database;
 
 $db = Database::getConnection();
 
-    var_dump($db);
+var_dump($db);
