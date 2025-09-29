@@ -3,9 +3,9 @@
 // Базовый класс подключения к бд
 
     namespace app\Core\Database;
+    use config\DatabaseConfig;
     use PDO;
     use PDOException;
-    use config\DatabaseConfig;
 
 
     class Database

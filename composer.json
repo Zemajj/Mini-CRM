@@ -4,8 +4,7 @@
     "type": "library",
     "autoload": {
       "psr-4": {
-        "app\\": "app/",
-        "config\\": "config/"
+        "app\\": "app/"
       }
     },
     "license": "MIT",
@@ -16,6 +15,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-      "php": ">=8.4"
+      "php": ">=8.4",
+      "ext-pdo": "*"
     }
 }
