@@ -4,7 +4,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 
 use app\Core\Database\Database;
+use app\Model\User;
 
-$db = Database::getConnection();
-
-var_dump($db);
+    $userModel = new User();
+    print_r($userModel->all());
