@@ -2,6 +2,7 @@
 
 namespace app\Core\BaseModel;
 
+
 use app\Core\Database\Database;
 use PDO;
 
@@ -19,7 +20,13 @@ class BaseModel
         $this->pdo = Database::getConnection();
     }
 
-    // Метод
+    /*
+     * Простой метод для проверки:
+     * таблица работает,
+     * подключение есть,
+     * данные читаются
+     * и т.д.
+     */
     public function all(): array {
         if($this->table === '') {
             throw new \RuntimeException('Table not set in model');
@@ -34,4 +41,10 @@ class BaseModel
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    // Метод для поиска по ключу
+//    public function find(int $id): ?array
+//    {
+//
+//    }
 }
