@@ -4,11 +4,9 @@ namespace app\Model;
 
 use app\Core\BaseModel\BaseModel;
 
+ // Наследование от основного класса -> BaseModel
 class User extends BaseModel
 {
     protected string $table = 'users';
+    protected string $primaryKey = 'id';
 }
-
-$userModel = new User('users');
-$users = $userModel->all();
-print_r($users);
