@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\Core\BaseModel;
 
 
@@ -10,7 +12,8 @@ use PDO;
 class BaseModel
 
 // объявление свойств
-{   protected PDO $pdo;
+{
+    protected PDO $pdo;
     protected string $table = '';
     protected string $primaryKey = '';
 
@@ -27,15 +30,16 @@ class BaseModel
      * данные читаются
      * и т.д.
      */
-    public function all(): array {
-        if($this->table === '') {
+    public function all(): array
+    {
+        if ($this->table === '') {
             throw new \RuntimeException('Table not set in model');
         }
         try {
             $sql = "SELECT * FROM {$this->table}";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
-        } catch(\PDOException $e) {
+        } catch (\PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
 
@@ -43,8 +47,25 @@ class BaseModel
     }
 
     // Метод для поиска по ключу
-//    public function find(int $id): ?array
-//    {
-//
-//    }
+    public function find(int $id): ?array
+    {
+        // Сразу в бд не входим, делаем проверку и выкидывает null
+
+        if ($this->table === '') {
+            throw new \RuntimeException('Table not set in model');
+        }
+        if ($id <= 0) {
+            return null;
+        }
+
+        try {
+            $sql = "SELECT * FROM {$this->table} WHERE id = :id LIMIT 1";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute(['id' => $id]);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $row !== false ? $row : null;
+        } catch (\PDOException $e) {
+            return null;
+        }
+    }
 }
