@@ -14,8 +14,8 @@ class BaseModel
 // объявление свойств
 {
     protected PDO $pdo;
-    protected string $table = '';
-    protected string $primaryKey = '';
+    protected static string $table = '';
+    protected static string $primaryKey = '';
 
     // передаем подключение к БД
     public function __construct()
@@ -30,9 +30,9 @@ class BaseModel
      * данные читаются
      * и т.д.
      */
-    public function all(): array
+    public function all(): ?array
     {
-        if ($this->table === '') {
+        if (self::$table === '') {
             throw new \RuntimeException('Table not set in model');
         }
         try {
@@ -40,32 +40,30 @@ class BaseModel
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
         } catch (\PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            return $stmt->fetchAll();
         }
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return null;
     }
 
     // Метод для поиска по ключу
     public function find(int $id): ?array
     {
-        // Сразу в бд не входим, делаем проверку и выкидывает null
+        // Сразу в бд не входим, делаем проверку
 
-        if ($this->table === '') {
-            throw new \RuntimeException('Table not set in model');
-        }
+
         if ($id <= 0) {
             return null;
         }
 
         try {
-            $sql = "SELECT * FROM {$this->table} WHERE id = :id LIMIT 1";
+            $sql = "SELECT * FROM {$this->table} static::primaryKey = :id LIMIT 1";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute(['id' => $id]);
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             return $row !== false ? $row : null;
         } catch (\PDOException $e) {
-            return null;
+            return $stmt->fetchAll();
         }
     }
 }
