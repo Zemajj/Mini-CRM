@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types=1); // строгая типизация (только для этого файла!)
 
 namespace app\Core\BaseModel;
 
@@ -32,11 +32,11 @@ class BaseModel
      */
     public function all(): ?array
     {
-        if (self::$table === '') {
+        if (static::$table === '') {
             throw new \RuntimeException('Table not set in model');
         }
         try {
-            $sql = "SELECT * FROM {$this->table}";
+            $sql = "SELECT * FROM {static::table}";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
         } catch (\PDOException $e) {
@@ -57,7 +57,7 @@ class BaseModel
         }
 
         try {
-            $sql = "SELECT * FROM {$this->table} static::primaryKey = :id LIMIT 1";
+            $sql = "SELECT * FROM {static::table} static::primaryKey = :id LIMIT 1";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute(['id' => $id]);
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
