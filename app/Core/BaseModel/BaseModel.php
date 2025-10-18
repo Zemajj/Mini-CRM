@@ -34,16 +34,14 @@ class BaseModel
             throw new \RuntimeException('TABLE constant not defined in ' . static::class);
         }
         try {
-            $sql = 'SELECT * FROM' . static::TABLE;
+            $sql = 'SELECT * FROM ' . static::TABLE;
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
-            $stmt->fetchAll();
+           $result = $stmt->fetchAll();
         } catch (\PDOException $e) {
             error_log($e->getMessage());
-            return null;
         }
-
-        return null;
+        return $result;
     }
 
     // Метод для поиска по ключу
@@ -57,10 +55,10 @@ class BaseModel
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute(['id' => $id]);
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $row !== false ? $row : null;
         } catch (\PDOException $e) {
             error_log($e->getMessage());
-            return null;
+            return $row !== false ? $row : null;
         }
+        return $row;
     }
 }
