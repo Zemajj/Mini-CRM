@@ -14,8 +14,6 @@ class BaseModel
 // объявление свойств
 {
     protected PDO $pdo;
-    protected static string $table = '';
-    protected static string $primaryKey = '';
 
     // передаем подключение к БД
     public function __construct()
@@ -32,15 +30,17 @@ class BaseModel
      */
     public function all(): ?array
     {
-        if (static::$table === '') {
-            throw new \RuntimeException('Table not set in model');
+        if (!defined(static::class . '::TABLE')) {
+            throw new \RuntimeException('TABLE constant not defined in ' . static::class);
         }
         try {
-            $sql = "SELECT * FROM {static::table}";
+            $sql = 'SELECT * FROM' . static::TABLE;
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
+            $stmt->fetchAll();
         } catch (\PDOException $e) {
-            return $stmt->fetchAll();
+            error_log($e->getMessage());
+            return null;
         }
 
         return null;
@@ -52,18 +52,15 @@ class BaseModel
         // Сразу в бд не входим, делаем проверку
 
 
-        if ($id <= 0) {
-            return null;
-        }
-
         try {
-            $sql = "SELECT * FROM {static::table} static::primaryKey = :id LIMIT 1";
+            $sql =  'SELECT * FROM ' . static::TABLE . ' WHERE ' . static::PRIMARY_KEY . ' = :id LIMIT 1';
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute(['id' => $id]);
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             return $row !== false ? $row : null;
         } catch (\PDOException $e) {
-            return $stmt->fetchAll();
+            error_log($e->getMessage());
+            return null;
         }
     }
 }
