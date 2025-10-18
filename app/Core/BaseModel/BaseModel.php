@@ -37,17 +37,21 @@ class BaseModel
             $sql = 'SELECT * FROM ' . static::TABLE;
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
-           $result = $stmt->fetchAll();
+            $result = $stmt->fetchAll();
         } catch (\PDOException $e) {
             error_log($e->getMessage());
         }
-        return $result;
+        return  $result ?: null;
     }
 
     // Метод для поиска по ключу
     public function find(int $id): ?array
     {
         // Сразу в бд не входим, делаем проверку
+
+        if ($id <= 0) {
+            throw new \InvalidArgumentException('ID must be a positive integer');
+        }
 
 
         try {
@@ -56,9 +60,8 @@ class BaseModel
             $stmt->execute(['id' => $id]);
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
-            error_log($e->getMessage());
-            return $row !== false ? $row : null;
+           error_log($e->getMessage());
         }
-        return $row;
+        return $row !== false ? $row : null;
     }
 }
