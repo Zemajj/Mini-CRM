@@ -49,6 +49,10 @@ class BaseModel
     {
         // Сразу в бд не входим, делаем проверку
 
+        /*
+         *  Пока оставлю проверку id, потом придумаю, как правильно избавиться от него
+         */
+
         if ($id <= 0) {
             throw new \InvalidArgumentException('ID must be a positive integer');
         }
