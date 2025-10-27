@@ -57,7 +57,6 @@ class BaseModel
             throw new \InvalidArgumentException('ID must be a positive integer');
         }
 
-
         try {
             $sql =  'SELECT * FROM ' . static::TABLE . ' WHERE ' . static::PRIMARY_KEY . ' = :id LIMIT 1';
             $stmt = $this->pdo->prepare($sql);
