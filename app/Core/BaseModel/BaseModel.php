@@ -50,13 +50,13 @@ class BaseModel
         // Сразу в бд не входим, делаем проверку
 
         /*
-         *  Пока оставлю проверку id, потом придумаю, как правильно избавиться от него
+         *Пока оставлю проверку id, потом придумаю, как правильно избавиться от него
          */
 
         if ($id <= 0) {
             throw new \InvalidArgumentException('ID must be a positive integer');
         }
-
+        // подключение к БД
         try {
             $sql =  'SELECT * FROM ' . static::TABLE . ' WHERE ' . static::PRIMARY_KEY . ' = :id LIMIT 1';
             $stmt = $this->pdo->prepare($sql);
