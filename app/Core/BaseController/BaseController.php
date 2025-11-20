@@ -11,4 +11,7 @@ class BaseController
 	•	Все контроллеры (например, AuthController) будут наследовать этот класс.
      */
 
+
+
+
 }
