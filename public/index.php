@@ -14,7 +14,8 @@ use app\Core\Router\Router;
 
 
  // Регистрация маршрутов
- $router->add('GET', '/', 'HomeController');
+ $router->add('GET', '/home', 'HomeController');
  $router->add('POST', '/login', 'LoginController');
+
 
 

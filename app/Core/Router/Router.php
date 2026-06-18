@@ -29,21 +29,21 @@ class Router
 
     public function dispatch()
     {
-if ($_SERVER['REQUEST_METHOD'] === 'GET' || $_SERVER['REQUEST_URI'] === 'uri')  {
-
-}
-    }
-
-    public function notFound()
-    {
 
     }
+
+//    public function notFound()
+//    {
+//        if( $this->routes !== ['uri']) {
+//            return error_log("Not found");
+//        }
+//    }
 
     /*
      * 	• У этого класса будет внутренний список маршрутов.
-	•	Я смогу зарегистрировать маршруты через метод add(method, url, controller).
+	•	Я смогу зарегистрировать маршруты через метод add(method, uri, controller).
 	•	У него будет метод dispatch(), который:
-	•	читает текущий URL и HTTP метод,
+	•	читает текущий URI и HTTP метод,
 	•	ищет совпадающий маршрут,
 	•	создаёт контроллер,
 	•	вызывает нужный метод.
