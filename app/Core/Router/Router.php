@@ -6,42 +6,48 @@
 
 namespace app\Core\Router;
 
+
 class Router
 {
+    private array $routes = [];
 
-
-    private array $routes = []; // массив для хранения всех путей
-
-
-
-    // Регистрация маршрутов: GET или POST
-    public function add($method, $uri, $controller): void
+    // Регистрация маршрутов: GET и POST
+    public function add(string $method, string $uri, string $controller, string $action): void
     {
         $this->routes[] = [
             'method' => $method,
             'uri' => $uri,
-            'controller' => $controller
+            'controller' => $controller,
+            'action' => $action
         ];
 
     }
 
 
-
-    public function dispatch()
+    public function dispatch(): void
     {
+        $uri = $_SERVER['REQUEST_URI'];
+        $uri = parse_url($uri, PHP_URL_PATH);
+        $method = $_SERVER['REQUEST_METHOD'];
+        foreach ($this->routes as $route) {
+            if ($method === $route['method'] && $uri === $route['uri']) {
+                $controller = $route['controller'];
+                $action = $route['action'];
 
+                $controllerObject = new $controller();
+                $controllerObject->$action();
+
+                return;
+            }
+        }
+        http_response_code(404);
+        echo '404 Not Found';
     }
 
-//    public function notFound()
-//    {
-//        if( $this->routes !== ['uri']) {
-//            return error_log("Not found");
-//        }
-//    }
 
     /*
      * 	• У этого класса будет внутренний список маршрутов.
-	•	Я смогу зарегистрировать маршруты через метод add(method, uri, controller).
+	•	Я смогу зарегистрировать маршруты через метод add(method, uri, controller и action).
 	•	У него будет метод dispatch(), который:
 	•	читает текущий URI и HTTP метод,
 	•	ищет совпадающий маршрут,

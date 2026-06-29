@@ -1,21 +1,21 @@
 <?php
+// Строгость
+declare(strict_types=1);
 
 // подключение автозагрузки классов
-require_once __DIR__. '/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
-
-use app\Core\Database\Database;
-use app\Model\User;
-use app\Core\BaseController\BaseController;
 use app\Core\Router\Router;
+use app\Controllers\HomeController;
+use app\Controllers\LoginController;
 
 // Создание объекта роутер
- $router = new Router();
+$router = new Router();
 
 
- // Регистрация маршрутов
- $router->add('GET', '/home', 'HomeController');
- $router->add('POST', '/login', 'LoginController');
+// Регистрация маршрутов
+$router->add('GET', '/home', HomeController::class, 'home');
+$router->add('POST', '/login', LoginController::class, 'login');
 
-
+$router->dispatch();
 
