@@ -11,7 +11,7 @@ class Router
 {
     private array $routes = [];
 
-    // Регистрация маршрутов: GET и POST
+    // Регистрация маршрутов
     public function add(string $method, string $uri, string $controller, string $action): void
     {
         $this->routes[] = [
@@ -43,16 +43,4 @@ class Router
         http_response_code(404);
         echo '404 Not Found';
     }
-
-
-    /*
-     * 	• У этого класса будет внутренний список маршрутов.
-	•	Я смогу зарегистрировать маршруты через метод add(method, uri, controller и action).
-	•	У него будет метод dispatch(), который:
-	•	читает текущий URI и HTTP метод,
-	•	ищет совпадающий маршрут,
-	•	создаёт контроллер,
-	•	вызывает нужный метод.
-	•	Если маршрут не найден — вызывается notFound().
-     */
 }

@@ -8,7 +8,8 @@ class HomeController extends BaseController
 {
 
 
-    public function home() {
+    public function home(): void
+    {
         echo "Добро пожаловать на главную страницу!";
     }
     /*
