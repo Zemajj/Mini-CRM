@@ -2,3 +2,9 @@
 .idea/
 vendor/
 package.xml
+
+# Local Codex instructions
+AGENTS.md
+
+# Local environment variables and secrets
+.env
