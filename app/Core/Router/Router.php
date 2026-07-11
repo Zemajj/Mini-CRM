@@ -15,7 +15,7 @@ class Router
     public function add(string $method, string $uri, string $controller, string $action): void
     {
         $this->routes[] = [
-            'method' => $method,
+            'method' => strtoupper($method),
             'uri' => $uri,
             'controller' => $controller,
             'action' => $action
@@ -42,7 +42,7 @@ class Router
 
                 $controllerObject = new $controller();
 
-                if (!method_exists($controllerObject, $action)) {
+                if (!is_callable([$controllerObject, $action])) {
                     $this->notFound();
                     return;
                 }
