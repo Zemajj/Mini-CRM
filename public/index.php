@@ -2,8 +2,7 @@
 // Строгость
 declare(strict_types=1);
 
-// подключение автозагрузки классов
-require_once __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../bootstrap.php';
 
 use app\Core\Router\Router;
 use app\Controllers\HomeController;
