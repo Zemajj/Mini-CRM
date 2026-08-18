@@ -1,7 +1,8 @@
 <?php
 
-namespace app\Core\Router;
+declare(strict_types=1);
 
+namespace app\Core\Router;
 
 /**
  * Регистрирует маршруты приложения и передаёт HTTP-запрос
@@ -38,9 +39,7 @@ class Router
             'controller' => $controller,
             'action' => $action
         ];
-
     }
-
 
     /**
      * Сопоставляет текущий HTTP-запрос с зарегистрированным маршрутом
