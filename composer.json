@@ -1,22 +1,23 @@
 {
-    "name": "mycrm/project",
-    "description": "Mini-Crm",
-    "type": "library",
-    "autoload": {
-      "psr-4": {
-        "app\\": "app/"
-      }
-    },
-    "license": "MIT", 
-    "authors": [
-        {
-            "name": "Zema"
-        }
-    ],
-    "minimum-stability": "stable",
-    "require": {
-      "php": ">=8.5",
-      "ext-pdo": "*",
-        "vlucas/phpdotenv": "^5.6"
+  "name": "mycrm/project",
+  "description": "Mini-Crm",
+  "type": "library",
+  "autoload": {
+    "psr-4": {
+      "app\\": "app/"
     }
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Zema"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=8.5",
+    "ext-pdo": "*",
+    "ext-pdo_pgsql": "*",
+    "vlucas/phpdotenv": "^5.6"
+  }
 }
